@@ -1,0 +1,235 @@
+{
+  // general information
+  "genInfo": {
+    // path of input video stream, necessary when inVdoTyp = 0, 3
+    "inVdoPth": "./data/vdo.mp4",
+    // path of folder for input image files, necessary when inVdoTyp = 1
+    "inFrmFlrPth": "./data/img1/",
+    // path of input .ROI image
+    "inRoiPth": "./data/roi.jpg",
+    // path of input initial background for segmentation, necessary when inBgFlg = 1
+    "inBgPth": "./data/bg.jpg",
+    // path of input text file of camera parameters, necessary when trkDim = 3
+    "inCamParamPth": "./data/camParam.txt",
+    // path of input text file of camera intrinsic parameters, necessary when inCamInParamFlg = 1
+    "inCamInParamPth": "./data/camInParam.txt",
+    // path of input text file of object detection, necessary when inDetTyp = 0
+    "inDetTxtPth": "./data/det/det.txt",
+    // path of input video file of segmentation, necessary when inSegTyp = 0
+    "inSegVdoPth": "./data/seg.avi",
+    // path of input image folder of segmentation, necessary when inSegTyp = 1
+    "inSegImgFlrPth": "./data/seg1/",
+    // path of input cascades of face detection, necessary when fcDetFlg = 1
+    "inFcDetCscdPth": "./data/haarcascade_frontalface_alt.xml",
+    // path of output text file of tracking results
+    "outTrkTxtPth": "./data/res.txt",
+    // path of folder for output (original) frame image files, necessary when outFrmFlg = 1
+    "outFrmFlrPth": "./data/img1/",
+    // path of folder for output segmentation masks, necessary when outSegFlg = 1
+    "outSegFlrPth": "./data/seg1/",
+    // path of output text file of object detection, necessary when outDetFlg = 1
+    "outDetTxtPth": "./data/det/det.txt",
+    // path of output video file, necessary when outVdoFlg = 1
+    "outVdoPth": "./data/outVdo.avi",
+    // path of folder for output image files, necessary when outImgFlg = 1
+    "outImgFlrPth": "./data/outImg1/",
+    // path of output timestamp text file, necessary when inVdoTyp > 0
+    "outTstpPth": "./data/tstp.txt",
+    // path of output text file of face detection, necessary when fcDetFlg = 1
+    "outFcDetTxtPth": "./data/fcdet.txt",
+    // path of folder for face images, necessary when fcDetFlg = 1
+    "outFcDetFlrPth": "./data/fcdet/",
+    // type of input video source: 0: video file; 1: image files; 2: local camera; 3: IP camera
+    "inVdoTyp": 0,
+    // type of input detection: 0: text file; 1: online HOG (person only)
+    "inDetTyp": 0,
+    // type of input segmentation: 0: video file; 1: image folder; 2: online KNN; 3: online MOG2; 4: online SuBSENSE
+    "inSegTyp": 0,
+    // type of input calibration: 0: text file; 1: manual calibration; 2: self-calibration from 2D tracking, necessary when trkDim = 3
+    "inCalTyp": 0,
+    // flag of processing tracking
+    "procTrkFlg": 1,
+    // flag of face detection
+    "fcDetFlg": 0,
+    // flag of input initial background for segmentation, necessary when inSegTyp > 1
+    "inBgFlg": 0,
+    // flag of input text file of camera intrinsic parameters, necessary when inCalTyp > 0
+    "inCamInParamFlg": 0,
+    // flag of output (original) frame image files
+    "outFrmFlg": 0,
+    // flag of output segmentation masks
+    "outSegFlg": 0,
+    // flag of output detection results as txt file
+    "outDetFlg": 0,
+    // flag of output video file
+    "outVdoFlg": 0,
+    // flag of output image files
+    "outImgFlg": 1,
+    // flag of output tracking results using 2D and 3D locations from detection, necessary when inCalTyp = 0
+    "outTrkDetFlg": 0,
+    // flag of output depth and visibility in the tracking results, necessary when trkDim = 3
+    "outDepVisFlg": 0,
+    // flag of selecting ROI image
+    "selRoiFlg": 0,
+    // flag of plotting tracking results
+    "pltTrkResFlg": 1,
+    // flag of plotting object detection
+    "pltDetFlg": 0,
+    // flag of plotting segmentation
+    "pltSegFlg": 0,
+    // flag of 1-based index
+    "idx1BasedFlg": 0,
+    // starting frame count to process
+    "procStFrmCnt": 0,
+    // number of frames to process (-1: till the end of the video source)
+    "procFrmNum": -1,
+    // overriden frame rate, necessary when inVdoTyp > 0
+    "ovrdFrmRt": 10.0,
+    // flag of plotting the number of object identity, necessary when pltTrkResFlg = 1
+    "pltIdFlg": 1,
+    // time window in seconds for plotting previous trajectory, necessary when pltTrkResFlg = 1 and must be smaller than trkTrajTmSecThld
+    "pltTrajTmSec": 2.0,
+    // resized video frame height (-1: original size)
+    "rszFrmHei": -1,
+    // the length unit, 10 or 1000 (1 cm = 10 mm, 1 m = 1000 mm)
+    "lenUnit": 1000
+  },
+  // object detection
+  "objDet": {
+    // the ratio to resize the original image for human detection, necessary when inDetTyp = 1
+    "detRszRat": 1.0,
+    // threshold of detection score (in percentage), necessary when inDetTyp = 0 or 2
+    "detScrThld": 30.0,
+    // flag of input/output object class
+    "detObjClsFlg": 0,
+    // list of object classes, necessary when inDetTyp = 0 or 2
+    "detObjCls": [ "person" ],
+    // list of aspect ratio ranges for object classes, necessary when inDetTyp = 0 or 2
+    "detAspRatRng": [ [ 0.15, 1.0 ] ],
+    // flag of multi-scale testing, necessary when inDetTyp = 1
+    "detMltSclTstFlg": 1,
+    // threshold for the feature distance with SVM classifying plane for HOG human detection, necessary when inDetTyp = 1
+    "detHogHitThld": 0.0,
+    // size of window stride for HOG human detection, necessary when inDetTyp = 1
+    "detHogWinStrdSz": 8,
+    // size of the mock parameter for HOG human detection, necessary when inDetTyp = 1
+    "detHogPadSz": 32,
+    // coefficient of the detection window increase for HOG human detection, necessary when inDetTyp = 1
+    "detHogScl0": 1.05,
+    // coefficient to regulate the similarity threshold for HOG human detection, necessary when inDetTyp = 1
+    "detHogGrpThld": 5
+  },
+  // change detection/segmentation
+  "chgDet": {
+    // the ratio to resize the original image for segmentation
+    "segRszRat": 0.5,
+    // the overridden learning rate (-1.0: default/adaptive), necessary when inSegTyp > 1
+    "segLrnRt": -1.0,
+    // the history length for KNN and MOG2, necessary when inSegTyp = 2 or 3
+    "segHstLen": 200,
+    // threshold on the squared distance for KNN (default: 400.0) and MOG2 (default: 16.0), necessary when inSegTyp = 2 or 3
+    "segDist2Thld": 400.0,
+    // LBSP relative internal threshold for SuBSENSE, necessary when inSegTyp = 4
+    "segLbspRelSimiThld": 0.333,
+    // absolute descriptor distance threshold offset for SuBSENSE, necessary when inSegTyp = 4
+    "segDescDistThldOfst": 3,
+    // absolute minimal color distance threshold for SuBSENSE, necessary when inSegTyp = 4
+    "segMinColorDistThld": 30,
+    // number of different samples per pixel/block to be taken from input frames to build the background model for SuBSENSE, necessary when inSegTyp = 4
+    "segBgSmpNum": 50,
+    // number of similar samples needed to consider the current pixel/block as 'background' for SuBSENSE, necessary when inSegTyp = 4
+    "segReqBgSmpNum": 2,
+    // number of samples to use to compute the learning rate of moving averages for SuBSENSE, necessary when inSegTyp = 4
+    "segMovAvgSmpNum": 100,
+    // length of gap between blobs in x direction to be filled, necessary when inSegTyp > 1
+    "segFillGapX": 0,
+    // length of gap between blobs in y direction to be filled, necessary when inSegTyp > 1
+    "segFillGapY": 0,
+    // flag of shadow removal, necessary when inSegTyp > 1
+    "segShdwRmvFlg": 0,
+    // minimum Y ratio for shadow removal, necessary when segShdwRmvFlg = 1
+    "segShdwYRatMin": 0.40,
+    // maximum Y ratio for shadow removal, necessary when segShdwRmvFlg = 1
+    "segShdwYRatMax": 0.95,
+    // maximum Cr difference for shadow removal, necessary when segShdwRmvFlg = 1
+    "segShdwCrDiffThld": 11,
+    // maximum Cb difference for shadow removal, necessary when segShdwRmvFlg = 1
+    "segShdwCbDiffThld": 11
+  },
+  // camera calibration
+  "camCal": {
+    // flag of selecting vanishing lines on the ground plane, necessary when inCalTyp = 1
+    "calSelVanLnFlg": 0,
+    // flag of selecting 2D points for testing 3D distance on the ground plane, necessary when inCalTyp > 0
+    "calSelTstPtFlg": 0,
+    // given vanishing point Vr, necessary when calSelVanLnFlg = 0
+    "calVr": [ -1, -1 ],
+    // given vanishing point Vl, necessary when calSelVanLnFlg = 0
+    "calVl": [ -1, -1 ],
+    // the maximum height of camera in lenUnit, necessary when inCalTyp > 1
+    "calCamHeiMax": 0.0,
+    // the minimum height of camera in lenUnit, necessary when inCalTyp > 1
+    "calCamHeiMin": 0.0,
+    // size of the 3D grid (in lenUnit) on ground plane along R axis, necessary when inCalTyp > 0
+    "calGrdSzR": 10,
+    // size of the 3D grid (in lenUnit) on ground plane along L axis, necessary when inCalTyp > 0
+    "calGrdSzL": 10,
+    // flag of EDA optimization for camera calibration, necessary when inCalTyp > 0
+    "calEdaOptFlg": 1,
+    // type of reprojection error: 0: distance between grid points to grid lines; 1: measurement error compared to ground truth, necessary when calEdaOptFlg = 1
+    "calReprojErrTyp": 0,
+    // pair(s) of end points of measuring line segments, necessary when calReprojErrTyp = 1 and total number must be even
+    "calMeasLnSegNdPt": [
+      [ -1, -1 ], [ -1, -1 ]
+    ],
+    // ground truth distance of measuring line segments , necessary when calReprojErrTyp = 1 and total number must be half of calMeasLnSeg
+    "calMeasLnSegDist": [ -1 ],
+    // threshold for the time gap in seconds for collecting 1D nodes for self-calibration, necessary when inCalTyp = 2
+    "calCol1dIntvlSec": 0.30,
+    // threshold for the number of candidates required for Vy estimation, necessary when inCalTyp = 2
+    "calVyCandNumThld": 2000,
+    // threshold for the number of candidates required for Linf estimation, necessary when inCalTyp = 2
+    "calLinfCandNumThld": 2000
+  },
+  // object tracking
+  "objTrk": {
+    // dimension of tracking: 3: 3D; 2: 2D
+    "trkDim": 3,
+    // flag of segmentation used for tracking
+    "trkSegFlg": 0,
+    // threshold for 3D distance (in lenUnit) to determine nearby object nodes, necessary when trkDim = 3
+    "trk3dDistThld": 3.0,
+    // threshold for 2D distance (in pixels) to determine nearby object nodes, necessary when trkDim = 2
+    "trk2dDistThld": 100,
+    // flag of color space for the adaptive appearance model
+    "trkAppMdlClrFlg": 1,
+    // flag of LBP space for the adaptive appearance model
+    "trkAppMdlLbpFlg": 1,
+    // flag of gradient space for the adaptive appearance model
+    "trkAppMdlGradFlg": 0,
+    // absolute color distance threshold for the adaptive appearance model, necessary when trkAppMdlClrFlg = 1
+    "trkAppMdlClrDistThld": 30,
+    // absolute LBP distance threshold for the adaptive appearance model, necessary when trkAppMdlLbpFlg = 1
+    "trkAppMdlLbpDistThld": 60,
+    // absolute gradient magnitude distance threshold for the adaptive appearance model, necessary when trkAppMdlGradFlg = 1
+    "trkAppMdlGradMagDistThld": 0.5,
+    // absolute gradient angle distance threshold for the adaptive appearance model, necessary when trkAppMdlGradFlg = 1
+    "trkAppMdlGradAngDistThld": 4,
+    // size of the normalized adaptive appearance model
+    "trkAppMdlSz": [ 128, 128 ],
+    // number of samples in seconds stored at each pixel of the appearance model
+    "trkAppMdlSmpNumSec": 3.0,
+    // threshold of matching score for object re-identification and tracking in grouping state (0 to 1)
+    "trkMtchScrThld": 0.03,
+    // threshold of existing time in seconds for entering objects
+    "trkNtrTmSecThld": 0.3,
+    // threshold of time in seconds to keep temporarily left objects
+    "trkLftTmSecThld": 3.0,
+    //! threshold of time in seconds to predict the movement of left objects, must be smaller than trkTrajTmSecThld
+    "trkPredTmSecThld": 1.0,
+    // threshold of time in seconds that the objects are tracked as hypotheses (by prediction)
+    "trkHypTmSecThld": 0.3,
+    // threshold of time in seconds to keep past trajectory for each object
+    "trkTrajTmSecThld": 3.0
+  }
+}
